@@ -9,15 +9,25 @@
 // * 1 申请内存
 // * 2 修改内存大小
 // * 3 释放内存
-void* memManager(VM * vm, void* ptr, uint32_t oldSise, uint32_t newSize) {
-    // 系统累计分配的总内存
-    vm->allocatedBytes += newSize - oldSise;
+// 内存管理函数，根据传入的参数会有三种不同作用：
+// 1.申请内存 molloc：当 ptr 为 NULL 且 newSize 不为 0时，
+// realloc(ptr, newSize) 相当于 malloc(newSize)，即申请内存
+// 2.释放内存 free：当 ptr 不为 NULL 且 newSize 为 0 时，调用 free 进行释放内存
+// 3.修改空间大小 realloc：当 ptr 不为 NULL 且 newSize 不为 0 时，则执行 realloc(ptr, newSize)
+// 相当于修改空间大小，可能是在原内存空间继续分配新的空间，或者是重新分配一个新的内存空间
+void* memManager(VM *vm, void *ptr, uint32_t oldSize, uint32_t newSize) {
+    // 记录系统分配的内存总和
+    vm->allocatedBytes += newSize - oldSize;
 
-    // 避免 realloc(NULL, 0)定义的新地址， 此地址无法释放
+    // 避免 realloc(NULL, 0) 来定义新地址，该地址不能被释放
     if (newSize == 0) {
         free(ptr);
         return NULL;
     }
+
+    // 将 ptr 指向的内存大小调整到 newSize
+    // 如果将 realloc 的返回的地址直接赋给原指针变量，当 realloc 申请内存失败（内存不足等）则会返回 NULL，
+    // 这样原指针变量就会被 NULL 替换，丢失原地址空间，无法释放而产生内存泄漏
     return realloc(ptr, newSize);
 }
 
