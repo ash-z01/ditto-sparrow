@@ -2,7 +2,7 @@
 #define _VM_VM_H
 
 
-#include "common.h"
+#include "../include/common.h"
 
 
 // 虚拟机结构

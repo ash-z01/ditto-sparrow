@@ -10,6 +10,7 @@
 typedef struct vm VM;
 typedef struct lexer Lexer;
 typedef struct class_ Class;
+typedef uint8_t byte;
 
 
 #define UNUSED __attribute__((unused))

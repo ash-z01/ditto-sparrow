@@ -1,8 +1,8 @@
 #ifndef _LEXER_LEXER_H
 #define _LEXER_LEXER_H
 
-#include "common.h"
-#include "vm.h"
+#include "../include/common.h"
+#include "../vm/vm.h"
 
 typedef enum {
     TOKEN_UNKNOWN,
@@ -70,11 +70,11 @@ typedef enum {
 
     // 关系运算符
     TOKEN_EQUAL,  // ==
-    TOKEN_NOT_QEUAL, // !=
+    TOKEN_NOT_EQUAL, // !=
     TOKEN_GREATER, // >
-    TOOEN_GREATER_EQUAL, // >=
+    TOKEN_GREATER_EQUAL, // >=
     TOKEN_LESS, // <
-    TOKEN_LESS_EUQAL, // <=
+    TOKEN_LESS_EQUAL, // <=
     TOKEN_QUESTION,  // ?
 
     // 文件结束标记符, 仅在词法分析时使用
@@ -84,9 +84,9 @@ typedef enum {
 typedef struct
 {
     TokenType type;
-    const char* start;
-    uint32_t length;
-    uint32_t lineNo;
+    const char* start; // 源码串中单词的起始地址
+    uint32_t length; // 此单词的长度
+    uint32_t lineNo;  // 此单词所在的行号
 } Token;
 
 struct lexer
