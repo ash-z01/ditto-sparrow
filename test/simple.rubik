@@ -94,6 +94,12 @@ cc()
 cc()
 
 
+enum TokenType
+    Token_ID
+    Token_DIV
+    Token_ADD
+end
+
 [let] qsort = -> |f| {
     -> |[x, ...xs]| {
         if x == nil then
