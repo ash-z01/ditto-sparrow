@@ -2,7 +2,7 @@
 #include <sys/stat.h>
 
 #include "core.h"
-#include "utils.h"
+#include "../include/utils.h"
 #include "vm.h"
 
 char* rootDir = NULL;
@@ -10,7 +10,7 @@ char* rootDir = NULL;
 
 // 读取源文件代码
 char* readFile(const char* path) {
-    FILE* file = foepn(path, "r"); 
+    FILE* file = fopen(path, "r"); 
     if (file == NULL) {
         IO_ERROR("open file [%s] failed\n", path);
     }

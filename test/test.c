@@ -8,7 +8,7 @@ struct sample
    char * str;
 };
 
-void test1(){
+void test1() {
     struct sample * s = malloc(sizeof(struct sample));
     s->length = 10;
     s->str = malloc(s->length+1);
@@ -23,8 +23,7 @@ struct sample_vla
     char str[];
 };
 
-
-void test2(){
+void test2() {
     // bool a = false;
     char *string = "abcdefg";
     int len = strlen(string);

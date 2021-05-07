@@ -387,3 +387,48 @@ void getNextToken(Lexer* lexer) {
         return;
     }
 }
+
+
+// 当前Token为 expected 则 读入下一个 Token，并返回 true
+// 否则不读入，并返回 false
+bool matchToken(Lexer* lexer, TokenType expected) {
+    if (lexer->curToken.type == expected) {
+        getNextToken(lexer);
+        return true;
+    }
+    return false;
+}
+
+// 断言当前Token 并读入，否则报错
+void consumeCurToken(Lexer* lexer, TokenType expected, const char* errMsg) {
+    if (lexer->curToken.type != expected) {
+        COMPILE_ERROR(lexer, errMsg);
+    }
+    getNextToken(lexer);
+}
+
+// 断言下一个Token ，否则报错
+void consumeNextToken(Lexer* lexer, TokenType expected, const char* errMsg) {
+    getNextToken(lexer);
+    if (lexer->curToken.type != expected) {
+        COMPILE_ERROR(lexer, errMsg);
+    }
+}
+
+// sourceCode 未必来自 file
+// file仅用作跟踪待编译的代码的标识
+void initLexer(VM* vm, Lexer* lexer, const char* file, const char* sourceCode) {
+    lexer->file = file;
+    lexer->sourceCode = sourceCode;
+    lexer->curChar = *lexer->sourceCode;
+    lexer->nextCharPtr = lexer->sourceCode + 1;
+
+    lexer->curToken.lineNo = 1;
+    lexer->curToken.type = TOKEN_UNKNOWN;
+    lexer->curToken.start = NULL;
+    lexer->curToken.length = 0;
+
+    lexer->preToken = lexer->curToken;
+    lexer->interpolationExceptRightParenNum = 0;
+    lexer->vm = vm;
+}
