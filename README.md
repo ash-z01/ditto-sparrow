@@ -1,5 +1,4 @@
-# ditto-sparrow
-
+# parrot
 
 # run
 
@@ -8,7 +7,7 @@
 make
 
 # 执行
-./parrot test/simple.sp
+./parrot test/simple.parrot
 
 # 清理
 make clean
