@@ -1,0 +1,114 @@
+module MA
+    fn add(x, y)
+        x + y
+    end
+end
+
+
+trait TA
+    fn pow2(x)
+        return x * x
+    end
+end
+
+class CC
+    vec
+    cap
+    length
+end
+
+class DD < CC
+    vv
+end
+
+class CA
+    [cls_member:]
+        count
+    [inst_member:]
+        @id
+        @name
+        @age 
+        @cc : CC
+end
+
+impl CA
+    fusing TA
+    pub fn new(id, name, age)
+        return CA{id:id, name:name, age:age}
+    end
+
+    fn testf1(x, y, z)
+        t = MA::add(x, y)
+        return pow2(t)
+    end
+end
+
+
+ca1 = CA.new(0x1,"even",18)
+if ca1.age < 20 [then]
+    print("#{ca1.name} less 20")
+elseif ca1.age > 20 && ca1.age < 40 [then]
+    print("#{ca1.name} between 20 ~ 40")
+else 
+    print("#{ca1.name} > 40")
+end
+
+loop [do]
+    xxxx
+[until cond]
+end
+
+fn createCounter()
+    cnt = 0
+    fc = -> || {
+        cnt += 1
+        return cnt
+    }
+    return fc
+end
+
+5.times |n| {
+    puts n
+}
+
+v1 = [1,2,3,4,5]
+
+for i in v1
+    puts i 
+end
+
+hmap = {x1:"haha", x2:19}
+
+for k, v in hmap
+    puts(k, v)
+end
+
+v1.map(->|x| {x+1})
+    .filter(->|x| {x != 4})
+    .reduce(->|acc, sum| {sum += acc})
+    .collect
+
+cc = createCounter()
+
+cc()
+cc()
+
+
+[let] qsort = -> |f| {
+    -> |[x, ...xs]| {
+        if x == nil then
+            []
+        else
+            [
+                ...qsort(f)(xs.filter(->|a| {f(a, x)})),
+                x,
+                ...qsort(f)(xs.filter(->|a| {!f(a, x)})),
+            ]
+        end
+    }
+}
+
+[let] quick_sort = qsort(->|a,b| {a < b})
+
+print(quick_sort([5,4,7,9,2,6,1]))
+
