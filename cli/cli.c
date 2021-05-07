@@ -24,9 +24,8 @@ static void runFile(const char* path) {
     while (lexer.curToken.type != TOKEN_EOF) {
         getNextToken(&lexer);
         printf("%dL: %s [", lexer.curToken.lineNo, tokenArray[lexer.curToken.type]);
-        uint32_t idx = 0;
-        while (idx < lexer.curToken.length) {
-            printf("%c", *(lexer.curToken.start+idx++));
+        for (uint32_t i = 0; i < lexer.curToken.length; i++) {
+            putchar(*(lexer.curToken.start+i));
         }
         printf("]\n");
     }
